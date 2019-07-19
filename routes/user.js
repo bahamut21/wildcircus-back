@@ -19,7 +19,6 @@ router.get('/:id', (request, response) => {
 router.get('/tickets/:id', (request, response) => {
   connection.query('SELECT u.firstName, u.lastName, u.email, u.id, u.city, u.nbTicket1, u.nbTicket2, u.nbTicket3, u.event_id, e.name, e.city as location, e.date, e.picture1, e.tarif1, e.tarif2, e.tarif3, e.tarif1 * u.nbTicket1 as total1, e.tarif2 * u.nbTicket2 as total2, e.tarif3 * u.nbTicket3 as total3, (e.tarif1 * u.nbTicket1) + (e.tarif2 * u.nbTicket2) + (e.tarif3 * u.nbTicket3) as total FROM user as u LEFT JOIN event as e ON e.id = u.event_id WHERE u.id = ?', request.params.id, (error, results) => {
     if (error) {
-      console.log(error)
       response.sendStatus(500);
     } else {
       response.json(results);

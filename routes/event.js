@@ -14,6 +14,17 @@ router.get('/:id', (request, response) => {
   });
 });
 
+// Get informations from events.
+router.get('/name/info', (request, response) => {
+  connection.query('SELECT id, name FROM event ', (error, results) => {
+    if (error) {
+      response.sendStatus(500);
+    } else {
+      response.json(results);
+    }
+  });
+});
+
 // Update informations from an event by id.
 router.put('/:id', (request, response) => {
   connection.query('UPDATE event SET ? WHERE id = ?', [request.body, request.params.id], (error, results) => {
